@@ -8,3 +8,24 @@ edition = "2021"
 [dependencies]
 bracket-lib = "~0.8.7"
 legion = "=0.3.1"
+color-eyre = "~0.6.2"
+rstest = "~0.18.2"
+rayon = "~1.8.0"
+const_panic = "~0.2.0"
+
+[lints.rust]
+unsafe_code = "forbid"
+
+[lints.clippy]
+enum_glob_use = "deny"
+pedantic = "deny"
+nursery = "deny"
+unwrap_used = "deny"
+
+[profile.release]
+opt-level = 'z'
+lto = true
+codegen-units = 1
+panic = 'abort'
+strip = "symbols"
+

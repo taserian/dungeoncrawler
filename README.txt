@@ -1,0 +1,1 @@
+This is my project following the book Hands-On Rust.
