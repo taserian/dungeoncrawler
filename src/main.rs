@@ -1,10 +1,11 @@
 #![warn(clippy::all, clippy::pedantic)]
-mod camera;
-mod map;
-mod map_builder;
+
 mod components;
 mod spawner;
+mod map;
+mod map_builder;
 mod systems;
+mod camera;
 mod turn_state;
 
 mod tests {
@@ -27,12 +28,12 @@ mod prelude {
     pub const SCREEN_HEIGHT: i32 = 50;
     pub const DISPLAY_WIDTH: i32 = SCREEN_WIDTH / 2;
     pub const DISPLAY_HEIGHT: i32 = SCREEN_HEIGHT / 2;
-    pub use crate::camera::*;
-    pub use crate::map::*;
-    pub use crate::map_builder::*;
     pub use crate::components::*;
     pub use crate::spawner::*;
+    pub use crate::map::*;
     pub use crate::systems::*;
+    pub use crate::map_builder::*;
+    pub use crate::camera::*;
     pub use crate::turn_state::*;
 }
 
@@ -83,18 +84,15 @@ impl GameState for State {
         self.resources.insert(Point::from_tuple(ctx.mouse_pos()));
         let current_state = self.resources.get::<TurnState>().unwrap().clone();
         match current_state {
-            TurnState::AwaitingInput => self.input_systems.execute(
-                &mut self.ecs,
-                &mut self.resources
-            ),
-            TurnState::PlayerTurn => self.player_systems.execute(
-                &mut self.ecs,
-                &mut self.resources
-            ),
-            TurnState::MonsterTurn => self.monster_systems.execute(
-                &mut self.ecs,
-                &mut self.resources
-            )
+            TurnState::AwaitingInput => {
+                self.input_systems.execute(&mut self.ecs, &mut self.resources)
+            },
+            TurnState::PlayerTurn => {
+                self.player_systems.execute(&mut self.ecs, &mut self.resources)
+            },
+            TurnState::MonsterTurn => {
+                self.monster_systems.execute(&mut self.ecs, &mut self.resources)
+            }
         }
         render_draw_buffer(ctx).expect("Render error");
     }
