@@ -12,6 +12,8 @@ color-eyre = "~0.6.2"
 rstest = "~0.18.2"
 rayon = "~1.8.0"
 const_panic = "~0.2.0"
+serde = { version = "=1.0.115"}
+ron = "=0.6.1"
 # rltk = { git = "https://github.com/amethyst/bracket-lib.git" }
 
 [lints.rust]
